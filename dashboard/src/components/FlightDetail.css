@@ -1,139 +1,206 @@
+/* Flight Detail - ATC Theme */
+
 .flight-detail {
-  background: #0d1b2a;
-  border-radius: 8px;
-  padding: 16px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  padding: 12px;
 }
 
 .flight-detail.empty {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 200px;
+  min-height: 180px;
 }
 
 .flight-detail .hint {
-  color: #6b8aad;
-  font-size: 12px;
+  color: var(--text-dim);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .detail-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--panel-border);
 }
 
 .detail-header h2 {
-  color: #4a90d9;
-  font-size: 16px;
+  color: var(--text-bright);
+  font-size: 14px;
   font-weight: 600;
   margin: 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .close-btn {
   background: none;
-  border: none;
-  color: #6b8aad;
-  font-size: 24px;
+  border: 1px solid var(--panel-border);
+  color: var(--text-dim);
+  font-size: 16px;
   cursor: pointer;
-  padding: 0;
+  padding: 0 6px;
   line-height: 1;
+  border-radius: 2px;
+  transition: all 0.15s;
 }
 
 .close-btn:hover {
-  color: #a0b8d0;
+  color: var(--text-bright);
+  border-color: var(--text-dim);
 }
 
 .conflict-warning {
-  background: rgba(255, 68, 68, 0.2);
-  color: #ff4444;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 11px;
+  background: rgba(255, 0, 0, 0.15);
+  color: var(--danger);
+  padding: 4px 10px;
+  border: 1px solid var(--danger);
+  border-radius: 2px;
+  font-size: 10px;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 12px;
-  animation: pulse 1s infinite;
+  margin-bottom: 10px;
+  animation: conflict-blink 1s infinite;
+  letter-spacing: 1px;
+}
+
+@keyframes conflict-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 .detail-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .detail-item {
-  background: #152535;
-  border-radius: 6px;
-  padding: 10px;
+  background: rgba(0, 20, 0, 0.5);
+  border: 1px solid var(--panel-border);
+  border-radius: 2px;
+  padding: 8px;
 }
 
 .detail-item .label {
   display: block;
-  color: #6b8aad;
-  font-size: 10px;
+  color: var(--text-dim);
+  font-size: 9px;
   text-transform: uppercase;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
+  letter-spacing: 0.5px;
 }
 
 .detail-item .value {
   display: block;
-  color: #a0b8d0;
+  color: var(--text-bright);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
 }
 
 .detail-item .value.coords {
-  font-size: 12px;
-  line-height: 1.4;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-normal);
 }
 
 .detail-item .unit {
   display: block;
-  color: #6b8aad;
-  font-size: 10px;
+  color: var(--text-dim);
+  font-size: 9px;
   margin-top: 2px;
 }
 
+/* Compass */
 .compass {
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   margin: 0 auto;
 }
 
 .compass-ring {
   position: absolute;
   inset: 0;
-  border: 2px solid #1a3a5c;
+  border: 2px solid var(--panel-border);
   border-radius: 50%;
+  background: radial-gradient(circle, transparent 0%, rgba(0, 20, 0, 0.5) 100%);
 }
 
 .compass-ring span {
   position: absolute;
-  color: #6b8aad;
-  font-size: 10px;
+  color: var(--text-dim);
+  font-size: 9px;
   font-weight: 600;
 }
 
-.compass-ring .n { top: 4px; left: 50%; transform: translateX(-50%); color: #ff4444; }
-.compass-ring .e { right: 4px; top: 50%; transform: translateY(-50%); }
-.compass-ring .s { bottom: 4px; left: 50%; transform: translateX(-50%); }
-.compass-ring .w { left: 4px; top: 50%; transform: translateY(-50%); }
+.compass-ring .n {
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--text-bright);
+}
+
+.compass-ring .e {
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.compass-ring .s {
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.compass-ring .w {
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
 .compass-arrow {
   position: absolute;
   top: 50%;
   left: 50%;
   transform-origin: center center;
-  color: #00ff88;
-  font-size: 20px;
-  margin-left: -8px;
-  margin-top: -30px;
+  color: var(--text-bright);
+  font-size: 16px;
+  margin-left: -6px;
+  margin-top: -26px;
+  text-shadow: 0 0 6px var(--text-bright);
 }
 
 .flight-detail.conflict .compass-arrow {
-  color: #ff4444;
+  color: var(--danger);
+  text-shadow: 0 0 6px var(--danger);
+}
+
+/* Tick marks on compass */
+.compass-ring::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--panel-border);
+}
+
+.compass-ring::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--panel-border);
 }

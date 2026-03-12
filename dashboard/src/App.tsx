@@ -43,7 +43,7 @@ function App() {
         </aside>
 
         <section className="center-panel">
-          <RadarDisplay width={600} height={600} />
+          <RadarDisplay size={600} />
           <FlightDetail />
         </section>
 

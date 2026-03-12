@@ -9,6 +9,7 @@
  * - Uptime
  */
 
+import { useState, useEffect } from 'react';
 import { useFlightStore } from '../stores/flightStore';
 import './MetricsBar.css';
 
@@ -18,7 +19,15 @@ interface Props {
 
 export function MetricsBar({ connected }: Props) {
   const metrics = useFlightStore((state) => state.metrics);
-  const lastUpdate = useFlightStore((state) => state.connection.lastUpdate);
+  const [utcTime, setUtcTime] = useState(new Date());
+
+  // Update UTC clock every second
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setUtcTime(new Date());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const formatUptime = (seconds: number): string => {
     const h = Math.floor(seconds / 3600);
@@ -34,9 +43,8 @@ export function MetricsBar({ connected }: Props) {
     }
   };
 
-  const formatTime = (date: Date | null): string => {
-    if (!date) return '--:--:--';
-    return date.toLocaleTimeString();
+  const formatUtc = (date: Date): string => {
+    return date.toISOString().substring(11, 19) + 'Z';
   };
 
   return (
@@ -44,18 +52,18 @@ export function MetricsBar({ connected }: Props) {
       <div className="metrics-left">
         <div className={`connection-status ${connected ? 'connected' : 'disconnected'}`}>
           <span className="status-dot" />
-          {connected ? 'Connected' : 'Disconnected'}
+          {connected ? 'ONLINE' : 'OFFLINE'}
         </div>
 
-        <div className="metric">
-          <span className="metric-label">Last Update:</span>
-          <span className="metric-value">{formatTime(lastUpdate)}</span>
+        <div className="metric utc-clock">
+          <span className="metric-label">UTC</span>
+          <span className="metric-value">{formatUtc(utcTime)}</span>
         </div>
       </div>
 
       <div className="metrics-center">
-        <h1 className="title">SkyGuard</h1>
-        <span className="subtitle">Flight Monitoring System</span>
+        <h1 className="title">SKYGUARD</h1>
+        <span className="subtitle">ATC Conflict Detection System</span>
       </div>
 
       <div className="metrics-right">

@@ -1,17 +1,19 @@
+/* Metrics Bar - ATC Theme */
+
 .metrics-bar {
-  background: linear-gradient(180deg, #0d1b2a 0%, #152535 100%);
-  padding: 12px 24px;
+  background: linear-gradient(180deg, #001800 0%, var(--panel-bg) 100%);
+  padding: 8px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #1a3a5c;
+  border-bottom: 1px solid var(--panel-border);
 }
 
 .metrics-left,
 .metrics-right {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
 }
 
 .metrics-center {
@@ -19,17 +21,19 @@
 }
 
 .title {
-  color: #4a90d9;
-  font-size: 20px;
+  color: var(--text-bright);
+  font-size: 18px;
   font-weight: 700;
   margin: 0;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
 }
 
 .subtitle {
-  color: #6b8aad;
-  font-size: 10px;
-  letter-spacing: 1px;
+  color: var(--text-dim);
+  font-size: 9px;
+  letter-spacing: 2px;
   text-transform: uppercase;
 }
 
@@ -37,16 +41,18 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .connection-status.connected {
-  color: #00ff88;
+  color: var(--text-bright);
 }
 
 .connection-status.disconnected {
-  color: #ff4444;
+  color: var(--danger);
 }
 
 .status-dot {
@@ -57,16 +63,26 @@
 }
 
 .connection-status.connected .status-dot {
-  animation: glow 2s infinite;
+  animation: pulse-glow 2s infinite;
+  box-shadow: 0 0 6px currentColor;
 }
 
-@keyframes glow {
+.connection-status.disconnected .status-dot {
+  animation: blink-fast 0.5s infinite;
+}
+
+@keyframes pulse-glow {
   0%, 100% {
     box-shadow: 0 0 4px currentColor;
   }
   50% {
-    box-shadow: 0 0 8px currentColor;
+    box-shadow: 0 0 10px currentColor;
   }
+}
+
+@keyframes blink-fast {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
 
 .metric {
@@ -82,19 +98,37 @@
 }
 
 .metric-label {
-  color: #6b8aad;
-  font-size: 10px;
+  color: var(--text-dim);
+  font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .metric-value {
-  color: #a0b8d0;
-  font-size: 14px;
+  color: var(--text-normal);
+  font-size: 13px;
   font-family: 'JetBrains Mono', monospace;
   font-weight: 600;
 }
 
 .metrics-left .metric-value {
-  color: #4a90d9;
+  color: var(--text-bright);
+}
+
+/* UTC Clock styling */
+.utc-clock .metric-value {
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+}
+
+/* Separator between metrics */
+.metrics-right .metric {
+  padding-left: 16px;
+  border-left: 1px solid var(--panel-border);
+}
+
+.metrics-right .metric:first-child {
+  border-left: none;
+  padding-left: 0;
 }
