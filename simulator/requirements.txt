@@ -1,0 +1,6 @@
+# SkyGuard Flight Simulator
+# No external dependencies - uses only Python standard library
+#
+# Optional for visualization:
+# matplotlib>=3.5.0
+# numpy>=1.21.0

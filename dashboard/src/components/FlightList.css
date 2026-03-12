@@ -1,0 +1,91 @@
+.flight-list {
+  background: #0d1b2a;
+  border-radius: 8px;
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.flight-list h3 {
+  color: #4a90d9;
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.flight-table-container {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.flight-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+.flight-table th {
+  text-align: left;
+  padding: 8px 6px;
+  color: #6b8aad;
+  border-bottom: 1px solid #1a3a5c;
+  font-weight: 500;
+  position: sticky;
+  top: 0;
+  background: #0d1b2a;
+}
+
+.flight-row {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.flight-row:hover {
+  background: rgba(74, 144, 217, 0.1);
+}
+
+.flight-row td {
+  padding: 6px;
+  color: #a0b8d0;
+  border-bottom: 1px solid #152535;
+}
+
+.flight-row.selected {
+  background: rgba(255, 255, 0, 0.1);
+}
+
+.flight-row.selected td {
+  color: #ffff00;
+}
+
+.flight-row.conflict {
+  background: rgba(255, 68, 68, 0.1);
+}
+
+.flight-row.conflict td {
+  color: #ff6b6b;
+}
+
+.flight-id {
+  font-weight: 600;
+  color: #4a90d9;
+}
+
+.status-normal {
+  color: #00ff88;
+  font-size: 10px;
+}
+
+.status-conflict {
+  color: #ff4444;
+  font-weight: 600;
+  font-size: 10px;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

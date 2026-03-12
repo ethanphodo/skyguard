@@ -1,0 +1,100 @@
+.metrics-bar {
+  background: linear-gradient(180deg, #0d1b2a 0%, #152535 100%);
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #1a3a5c;
+}
+
+.metrics-left,
+.metrics-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.metrics-center {
+  text-align: center;
+}
+
+.title {
+  color: #4a90d9;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  color: #6b8aad;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.connection-status.connected {
+  color: #00ff88;
+}
+
+.connection-status.disconnected {
+  color: #ff4444;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.connection-status.connected .status-dot {
+  animation: glow 2s infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 4px currentColor;
+  }
+  50% {
+    box-shadow: 0 0 8px currentColor;
+  }
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.metrics-left .metric {
+  flex-direction: row;
+  gap: 6px;
+}
+
+.metric-label {
+  color: #6b8aad;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-value {
+  color: #a0b8d0;
+  font-size: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+
+.metrics-left .metric-value {
+  color: #4a90d9;
+}

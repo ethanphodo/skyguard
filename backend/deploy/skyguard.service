@@ -1,0 +1,128 @@
+# ============================================
+# SkyGuard Flight Monitoring Service
+# ============================================
+#
+# systemd service unit for production deployment
+#
+# For interview: "I configured the service with proper security hardening,
+# resource limits, and restart policies. This is how a real air traffic
+# node would operate in a Red Hat environment."
+#
+# Installation:
+#   sudo cp skyguard.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable skyguard
+#   sudo systemctl start skyguard
+#
+# Logs:
+#   journalctl -u skyguard -f
+#
+
+[Unit]
+Description=SkyGuard Flight Monitoring & Alerting System
+Documentation=https://github.com/skyguard/skyguard
+After=network-online.target
+Wants=network-online.target
+
+# Ensure we start after syslog is available
+After=syslog.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/skyguard --port 5000 --workers 4
+
+# ============================================
+# Process Management
+# ============================================
+
+# Restart on failure with exponential backoff
+Restart=on-failure
+RestartSec=5
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+# Graceful shutdown timeout (allows queue drain)
+TimeoutStopSec=30
+
+# Send SIGTERM first, then SIGKILL after timeout
+KillMode=mixed
+KillSignal=SIGTERM
+
+# ============================================
+# Resource Limits
+# ============================================
+# For interview: "I set resource limits to prevent runaway processes
+# from affecting other system services - critical for safety systems."
+
+# Memory limit (adjust based on expected flight count)
+MemoryMax=512M
+MemoryHigh=384M
+
+# CPU quota (80% of 4 cores = 320%)
+CPUQuota=320%
+
+# File descriptor limit (for socket connections)
+LimitNOFILE=65536
+
+# Enable real-time scheduling (required for SCHED_FIFO)
+# Requires CAP_SYS_NICE capability
+LimitRTPRIO=50
+
+# ============================================
+# Security Hardening
+# ============================================
+# For interview: "Defense in depth - even if the application has a
+# vulnerability, systemd sandboxing limits the blast radius."
+
+# Run as dedicated service user (create with: useradd -r -s /bin/false skyguard)
+User=skyguard
+Group=skyguard
+
+# Restrict filesystem access
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadWritePaths=/var/log/skyguard
+
+# Network restrictions (only needs UDP 5000 and TCP 8080)
+RestrictAddressFamilies=AF_INET AF_INET6
+
+# System call filtering
+SystemCallFilter=@system-service
+SystemCallFilter=~@privileged @resources
+
+# Capability restrictions
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE CAP_SYS_NICE
+AmbientCapabilities=CAP_NET_BIND_SERVICE CAP_SYS_NICE
+
+# Prevent privilege escalation
+NoNewPrivileges=yes
+
+# Private /dev (no access to physical devices)
+PrivateDevices=yes
+
+# Restrict kernel module loading
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+
+# ============================================
+# Logging
+# ============================================
+
+# Log to journald (captured by journalctl)
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=skyguard
+
+# ============================================
+# Environment
+# ============================================
+
+# Set locale for consistent log formatting
+Environment=LANG=en_US.UTF-8
+
+# Production environment flag
+Environment=SKYGUARD_ENV=production
+
+[Install]
+WantedBy=multi-user.target

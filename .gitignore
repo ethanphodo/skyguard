@@ -1,0 +1,32 @@
+# Build artifacts
+backend/build/
+*.o
+*.a
+*.so
+*.dylib
+
+# Node modules
+dashboard/node_modules/
+dashboard/dist/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+/tmp/

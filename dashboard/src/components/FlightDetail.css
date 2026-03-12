@@ -1,0 +1,139 @@
+.flight-detail {
+  background: #0d1b2a;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.flight-detail.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.flight-detail .hint {
+  color: #6b8aad;
+  font-size: 12px;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.detail-header h2 {
+  color: #4a90d9;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #6b8aad;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  color: #a0b8d0;
+}
+
+.conflict-warning {
+  background: rgba(255, 68, 68, 0.2);
+  color: #ff4444;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 12px;
+  animation: pulse 1s infinite;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.detail-item {
+  background: #152535;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.detail-item .label {
+  display: block;
+  color: #6b8aad;
+  font-size: 10px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.detail-item .value {
+  display: block;
+  color: #a0b8d0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.detail-item .value.coords {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.detail-item .unit {
+  display: block;
+  color: #6b8aad;
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+.compass {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+.compass-ring {
+  position: absolute;
+  inset: 0;
+  border: 2px solid #1a3a5c;
+  border-radius: 50%;
+}
+
+.compass-ring span {
+  position: absolute;
+  color: #6b8aad;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.compass-ring .n { top: 4px; left: 50%; transform: translateX(-50%); color: #ff4444; }
+.compass-ring .e { right: 4px; top: 50%; transform: translateY(-50%); }
+.compass-ring .s { bottom: 4px; left: 50%; transform: translateX(-50%); }
+.compass-ring .w { left: 4px; top: 50%; transform: translateY(-50%); }
+
+.compass-arrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  color: #00ff88;
+  font-size: 20px;
+  margin-left: -8px;
+  margin-top: -30px;
+}
+
+.flight-detail.conflict .compass-arrow {
+  color: #ff4444;
+}
